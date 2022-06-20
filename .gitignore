@@ -1,0 +1,6 @@
+src/*
+!src/require.json
+
+settings/src.json
+
+*.temp*
