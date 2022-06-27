@@ -1,4 +1,4 @@
-import TAF from "../../../global/var/TAF.js"
+import TAF from "../../var/TAF.js"
 
 export const unique = () => {
     return (new Date()).getTime() + (Math.round(Math.random() * 10000))

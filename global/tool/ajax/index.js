@@ -1,4 +1,4 @@
-import { serialize } from "../../../tool/n0safe/prototype/prototypeFormData.js"
+import { serialize } from "../prototype/prototypeFormData.js"
 import TAF from "../../var/TAF.js"
 
 // create a function to put in ajaxResponse and ajaxArrayResponse to allow the user the property to create a personal function

@@ -1,6 +1,6 @@
 import TAF from "../../var/TAF.js"
 import onrequestreceive from "./onrequestreceive.js"
-import windowManager from "../../../tool/n0safe/manager/windowManager.js"
+import windowManager from "../../tool/manager/windowManager.js"
 
 
 export default new(class {

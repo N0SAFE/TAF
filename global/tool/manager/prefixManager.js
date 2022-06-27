@@ -1,4 +1,4 @@
-import * as util from "../../../global/tool/util/util.js"
+import * as util from "../../tool/util/util.js"
 
 export default class PrefixManager {
     prefix = {}

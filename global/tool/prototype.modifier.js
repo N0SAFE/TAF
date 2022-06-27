@@ -1,5 +1,5 @@
 // contain all association between class name string and current class
-import promiseManager from "../../tool/n0safe/manager/promiseManager.js";
+import promiseManager from "./manager/promiseManager.js";
 import association_string_to_object from "../association/string-class.js"
 import TAF from "../var/TAF.js";
 

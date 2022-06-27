@@ -75,9 +75,12 @@ export class Referencer {
 
 export function creator(obj = {}, sortType) {
     let ret = recursiveFunction(obj)
-    console.log(sortType)
     if (sortType == "text")
         return ret.outerHTML
+    if (sortType == "json")
+        return JSON.stringify(ret)
+    if (sortType == "object")
+        return {...ret }
     return ret
 }
 

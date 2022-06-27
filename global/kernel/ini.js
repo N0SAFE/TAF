@@ -1,19 +1,19 @@
-import "../../tool/node_modules/sodium.js"
+import "../tool/node_modules/sodium.js"
 import TAF from "../var/TAF.js"
 import prototypeModifier from "../tool/prototype.modifier.js"
 
 window.TAF = TAF
 
 /**
- * @param {object} params <scriptLoader:Object<baseLocation:string>, requireScript:Array<string>, iniLoadScript:Array<string>>
- * @returns {object} <debugTool, devTool, modulesLoad, modulesLoadAssocName>
+ * It loads a bunch of scripts and then returns the result of loading those scripts
+ * @returns The return value is the result of the last statement in the function.
  */
 export default async function setApp(params = { baseLocation: { ajax: "", script: "" }, requireScript: [], iniLoadScript: [], dev: false, tafDeep: "", cache: true }) {
 
     // set the stack limit off the error handler to infinity
     Error.stackTraceLimit = Infinity
 
-    let metaScript =
+    const metaScript =
         import.meta.url
 
     let startTime = performance.now();
@@ -31,7 +31,7 @@ export default async function setApp(params = { baseLocation: { ajax: "", script
     window.TAF = TAF
     window.ajax = TAF.module.ajax
 
-    let TafBaseLocation = new URL(metaScript + "/../../../").href
+    const TafBaseLocation = new URL(metaScript + "/../../../").href
     let TafProjectBaseLocation
     if (typeof params.projectLocation == "string" && TAF.module.util.isValidURL(params.projectLocation)) {
         TafProjectBaseLocation = params.projectLocation
@@ -53,18 +53,9 @@ export default async function setApp(params = { baseLocation: { ajax: "", script
     TAF.addTAFVar(["info", "utilLocation"], TAF.info.globalLocation + "tool/util/")
     TAF.addTAFVar(["info", "devLocation"], TAF.info.globalLocation + "tool/dev/")
     TAF.addTAFVar(["info", "errorLocation"], TAF.info.globalLocation + "tool/error/")
-
-    TAF.module.util.multiCall(TAF.addTAFVar.bind(TAF), [
-        [
-            ["info", "ajaxBaseLocation"], TAF.module.util.searchInObject(params, ["baseLocation", "ajax"]) || ""
-        ],
-        [
-            ["info", "scriptBaseLocation"], TAF.module.util.searchInObject(params, ["baseLocation", "script"]) || ""
-        ],
-        [
-            ["info", "dirName"], TafBaseLocation.split("/").slice(-2)[0]
-        ]
-    ])
+    TAF.addTAFVar(["info", "ajaxBaseLocation"], TAF.module.util.searchInObject(params, ["baseLocation", "ajax"]) || "")
+    TAF.addTAFVar(["info", "scriptBaseLocation"], TAF.module.util.searchInObject(params, ["baseLocation", "script"]) || "")
+    TAF.addTAFVar(["info", "dirName"], TafBaseLocation.split("/").slice(-2)[0])
 
     // set the TAF property of scriptLoader (getParams, setParams, PARAMS and prefixManager)
     TAF.module.loader.script.ini()
@@ -175,8 +166,11 @@ export default async function setApp(params = { baseLocation: { ajax: "", script
 
     // ! prototype/modifier must be load in first and with scriptLoader.load and not .loads (the asyncForEach is used in scriptLoader.loads function)
     await prototypeModifier.ini();
-    await TAF.module.loader.script.array.load(["n0safe/manager/event"]);
-    TAF.addTAFVar(["module", "eventManager"], TAF.module.loader.script.call({ module: "n0safe/manager/event", property: "default" }))
+
+
+
+    // await TAF.module.loader.script.array.load(["n0safe/manager/event"]);
+    // TAF.addTAFVar(["module", "eventManager"], TAF.module.loader.script.call({ module: "n0safe/manager/event", property: "default" }))
 
 
 
